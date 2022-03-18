@@ -1,10 +1,10 @@
 
 export interface Course {
-  _id: string;
-  seqNo:number;
-  url:string;
+  _id?: string;
+  seqNo: number;
+  url: string;
   iconUrl: string;
-  courseListIcon: string;
+  courseListIcon?: string;
   description: string;
   longDescription?: string;
   category: string;
@@ -13,16 +13,16 @@ export interface Course {
 }
 
 
-export function compareCourses(c1:Course, c2: Course) {
+export function compareCourses(c1: Course, c2: Course) {
 
   const compare = c1.seqNo - c2.seqNo;
 
   if (compare > 0) {
     return 1;
-  }
-  else if ( compare < 0) {
+  } else if ( compare < 0) {
     return -1;
+  } else {
+    return 0;
   }
-  else return 0;
 
 }

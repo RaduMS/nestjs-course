@@ -1,0 +1,12 @@
+
+
+in package.json  am la start acel proxy.json care imi spune unde sa faca redirectul
+
+"scripts": {
+    "ng": "ng",
+    "start": "ng serve  --proxy-config ./proxy.json",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },

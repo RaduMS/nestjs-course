@@ -1,4 +1,5 @@
 import {findAllCourses, findAllUsers, findLessonsForCourse} from './db-data';
+import {MONGO_CONNECTION} from './src/constants';
 
 const util = require('util');
 
@@ -25,10 +26,10 @@ var ObjectId = require('mongodb').ObjectID;
 *
 *****************************************************************************************************/
 
-const MONGODB_CONNECTION_URL = 'mongodb+srv://nestjs:ZeEjdswOWHwoenQO@cluster0-dbucq.gcp.mongodb.net';
+const MONGODB_CONNECTION_URL = MONGO_CONNECTION;
 
 // Database Name
-const dbName = 'nestjs-course';
+const dbName = 'nestjsCourse';
 
 
 
@@ -44,6 +45,7 @@ client.connect(async (err, client) => {
 
     if (err) {
       console.log("Error connecting to database, please check the username and password, exiting.");
+      console.log(err);
       process.exit();
     }
 
@@ -126,6 +128,8 @@ client.connect(async (err, client) => {
     process.exit();
   }
 
+}, {
+  useNewUrlParser: true,
 });
 
 console.log('updloading data to MongoDB...');
