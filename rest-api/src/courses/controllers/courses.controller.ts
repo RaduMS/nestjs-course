@@ -1,4 +1,4 @@
-import {Controller, Get, Put, Delete, Post, Body, Param, Req, Res, BadRequestException} from '@nestjs/common';
+import {Controller, Get, Put, Delete, Post, Body, Param, Req, Res, BadRequestException, UseFilters} from '@nestjs/common';
 import { Course } from '../../../../shared/course';
 import { findAllCourses } from '../../../db-data';
 import {CoursesRepository} from '../repositories/courses.repository';
@@ -7,8 +7,10 @@ import {CoursesService} from '../services/courses.service';
 import {CoursesEntity} from '../entity/courses.entity';
 import { Request, Response } from 'express';
 import {DeleteResult, FindAndModifyWriteOpResultObject} from 'typeorm';
+import {HttpExceptionFilter} from '../../filters/http.filter';
 
 @Controller('courses')
+// @UseFilters(new HttpExceptionFilter())
 export class CoursesController {
 
   constructor(private coursesService: CoursesService) {
@@ -44,10 +46,16 @@ export class CoursesController {
   // }
 
   @Put(':courseId')
+  // @UseFilters(new HttpExceptionFilter())
   async updateCourse(
     @Param('courseId') courseId: string,
     @Body() changes: Partial<CoursesEntity>,
     ): Promise<FindAndModifyWriteOpResultObject> {
+    console.log(changes);
+    console.log(courseId);
+    if (changes._id) {
+      throw new BadRequestException('You can not update id');
+    }
     return await this.coursesService.updateCourse(courseId, changes);
   }
 
